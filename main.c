@@ -50,7 +50,7 @@ void cosine_map(double* head, double* destination_head,double* arr_head, int siz
 void fourier(double* time_head, double* destination_head, double* arr_head, int size){
     double* current_time = time_head;
     double* current_impulse = arr_head;
-    int NUM_COEFFICIENTS = 9;
+    int NUM_COEFFICIENTS = 8;
     double* current_coef = destination_head;
     double temp;
     double* sine_head = malloc(size * sizeof(double));
@@ -62,6 +62,8 @@ void fourier(double* time_head, double* destination_head, double* arr_head, int 
     
     
     double a_0 =  (1/T) * integrator(time_head, arr_head, size);
+    *current_coef = a_0;
+    current_coef ++;
     for (int i = 0; i < NUM_COEFFICIENTS; i++){
         sine_map(time_head, sine_head, arr_head,size, w_0 * (i + 1));
         cosine_map(time_head, cosine_head,arr_head,size, w_0 * (i + 1));
@@ -78,11 +80,14 @@ void fourier(double* time_head, double* destination_head, double* arr_head, int 
 
 int main() {
     // Write C code here
-    double impulses[] = {0, 1, 0, -1, 0};
-    double times[] = {0, 0.25, 0.5, 0.75, 1};
-    double *coefficients_head = malloc(sizeof(double) * 18);
-    fourier(&times[0], coefficients_head, &impulses[0], 5);
+    double impulses[] = {0, sin(2* M_PI * 0.1), sin(2* M_PI * 0.2), sin(2* M_PI * 0.3), sin(2* M_PI * 0.4), sin(2* M_PI * 0.5), sin(2* M_PI * 0.6), sin(2* M_PI * 0.7), sin(2* M_PI * 0.8), sin(2* M_PI * 0.9), sin(2* M_PI * 1)};
+    double times[] = {0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1};
+    double *coefficients_head = malloc(sizeof(double) * 17);
+    fourier(&times[0], coefficients_head, &impulses[0], 11);
     double *current_coef = coefficients_head;
+    printf("a_0: %f\n\n", *current_coef);
+    current_coef ++;
+    
     printf("Sine Coefficients:\n");
     for (int i = 0; i < 9; i++){
         printf("%i x w_0: %f\n", i+1, *current_coef);
