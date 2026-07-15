@@ -82,7 +82,6 @@ void fourier(double* time_head, double* destination_head, double* arr_head, int 
 }
 
 int main() {
-    // Write C code here
     double impulses[] = {0, sin(2* M_PI * 0.1), sin(2* M_PI * 0.2), sin(2* M_PI * 0.3), sin(2* M_PI * 0.4), sin(2* M_PI * 0.5), sin(2* M_PI * 0.6), sin(2* M_PI * 0.7), sin(2* M_PI * 0.8), sin(2* M_PI * 0.9), sin(2* M_PI * 1)};
     double times[] = {0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1};
     double *coefficients_head = malloc(sizeof(double) * 17);
