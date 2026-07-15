@@ -101,6 +101,6 @@ int main() {
         current_coef ++;
     }
     
-    
+    free(coefficients_head);
     return 0;
 }
