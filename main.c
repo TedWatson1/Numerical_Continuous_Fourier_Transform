@@ -3,21 +3,25 @@
 #include <math.h>
 
 double integrator(double* head_x, double* head_y, int size){
-    double* current_x = head_x + 1;
-    double* current_y = head_y + 1;
-    double output = 0;
-    double h;
-    int counter = 1;
-    while (counter != size - 1){
-        output += 2 * (*current_y);
-        current_y ++;
-        current_x ++;
-        counter ++;
+    if (size <= 1){
+        return -1;
     }
-    output += (*head_y) + (*current_y);
-    h = (*current_x) - (*head_x);
-    h = h / (size - 1);
-    output *= h/2;
+    double* current_x = head_x;
+    double* current_y = head_y;
+    double* next_x = head_x + 1;
+    double* next_y = head_y + 1;
+    double current_area; 
+    double output = 0;
+    int counter = 0;
+    for (int i = 0; i < size - 1; i++){
+        current_area = ((*current_y + *next_y) * (*next_x - *current_x)) / 2;
+        output += current_area;
+        current_x ++;
+        current_y ++;
+        next_x ++;
+        next_y ++;
+    }
+    
     return output;
 }
 
